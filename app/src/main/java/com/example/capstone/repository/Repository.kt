@@ -18,22 +18,32 @@ class Repository {
         val loggingInterceptor = HttpLoggingInterceptor()
         val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .client(okHTTPClient.addInterceptor(loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)).build())
+            .client(
+                okHTTPClient.addInterceptor(loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .build()
+            )
             .baseUrl(BASE_URL)
             .build()
 
         val weatherAPI = retrofit.create(WeatherAPI::class.java)
     }
 
-    suspend fun fetchCurrentWeather(location: String) {
+    suspend fun fetchCurrentWeather(location: String): String {
 
-        Log.i("Repostory", "Vai chamar a api dentro do repository")
+        var temperature = ""
 
-        val response = weatherAPI.fetchCurrentWeather(location, API_KEY)
+        val response = weatherAPI.fetchCurrentWeather(location, API_KEY, "metric")
+
         if (response.isSuccessful) {
-            Log.i("Response", "${response.body()}")
+
+            response.body()?.let {
+                temperature = it.main.temp.toInt().toString()
+            }
+
         } else
             Log.i("Response erro", "${response.errorBody()}")
+
+        return temperature + "º C"
     }
 
 }
