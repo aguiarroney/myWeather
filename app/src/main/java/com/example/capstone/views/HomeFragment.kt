@@ -17,6 +17,7 @@ import com.example.capstone.R
 import com.example.capstone.databinding.FragmentHomeBinding
 import com.example.capstone.repository.Repository
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 
 
 @Suppress("DEPRECATION")
@@ -28,6 +29,8 @@ class HomeFragment : Fragment() {
 
     companion object {
         const val RESQUEST_CODE = 1
+        const val ICON_URL = "https://openweathermap.org/img/wn/"
+        const val EXTENSION_ICON_URL = "@2x.png"
     }
 
     @SuppressLint("MissingPermission")
@@ -54,16 +57,28 @@ class HomeFragment : Fragment() {
         _viewModel.getCurrentLocation(requireActivity())
 
         _viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
-            _binding.tvCurrentTemperature.text = it
+            it?.let {
+
+                _binding.tvCurrentTemperature.text = it.main.temp.toInt().toString() + "º C"
+
+                _binding.tvWeatherDescription.text = it.weather[0].description
+
+                Picasso.with(context).load("${ICON_URL}${it.weather[0].icon}${EXTENSION_ICON_URL}")
+                    .into(_binding.ivWeatherIcon)
+            }
         })
 
         _viewModel.currentCityName.observe(viewLifecycleOwner, Observer {
-            _binding.tvCurrentLocation.text = it
-            _binding.ivLocationIcon.setBackgroundResource(R.drawable.ic_location_icon)
+            it?.let {
+                _binding.tvCurrentLocation.text = it
+                _binding.ivLocationIcon.setBackgroundResource(R.drawable.ic_location_icon)
+            }
         })
 
         _viewModel.currentLocation.observe(viewLifecycleOwner, Observer {
-            _viewModel.fetchCurrentWeather()
+            it?.let {
+                _viewModel.fetchCurrentWeather()
+            }
         })
 
         return _binding.root

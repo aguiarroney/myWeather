@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.capstone.model.WeatherModel
 import com.example.capstone.repository.Repository
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -17,8 +18,8 @@ import java.util.*
 
 class HomeFragmentViewModel(private val repository: Repository) : ViewModel() {
 
-    private var _currentWeather = MutableLiveData<String>()
-    val currentWeather: LiveData<String> = _currentWeather
+    private var _currentWeather = MutableLiveData<WeatherModel>()
+    val currentWeather: LiveData<WeatherModel> = _currentWeather
 
     private var _currentLocation = MutableLiveData<LatLng>()
     val currentLocation: LiveData<LatLng> = _currentLocation
@@ -33,7 +34,11 @@ class HomeFragmentViewModel(private val repository: Repository) : ViewModel() {
 
         viewModelScope.launch {
             Log.i("ViewModel", "Vai chamar a api")
-            _currentWeather.value = repository.fetchCurrentWeather("Rio de Janeiro")
+
+            _currentWeather.value = repository.fetchCurrentWeather(
+                _currentLocation.value!!.latitude,
+                _currentLocation.value!!.longitude
+            )
         }
     }
 
@@ -50,10 +55,24 @@ class HomeFragmentViewModel(private val repository: Repository) : ViewModel() {
                 "Address",
                 "${addres[0].subAdminArea} : ${addres[0].adminArea} : ${addres[0].locality}"
             )
-            _currentCityName.value = addres[0].subAdminArea + ", " + addres[0].adminArea
+
+            if (addres[0].locality.isNullOrEmpty()) {
+                _currentCityName.value = addres[0].subAdminArea + ", " + addres[0].adminArea
+            } else {
+                _currentCityName.value = addres[0].locality + ", " + addres[0].adminArea
+            }
+
             _currentLocation.value = LatLng(it.latitude, it.longitude)
         }
     }
 
+    fun fetchWeatherIcon(){
+
+        viewModelScope.launch{
+
+            val iconName = _currentWeather.value!!.weather[0].icon
+            repository.fetchWeatherIcon(iconName)
+        }
+    }
 
 }

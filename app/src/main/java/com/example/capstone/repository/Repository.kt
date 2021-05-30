@@ -2,6 +2,7 @@ package com.example.capstone.repository
 
 import android.util.Log
 import com.example.capstone.API.WeatherAPI
+import com.example.capstone.model.WeatherModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,22 +29,38 @@ class Repository {
         val weatherAPI = retrofit.create(WeatherAPI::class.java)
     }
 
-    suspend fun fetchCurrentWeather(location: String): String {
+    suspend fun fetchCurrentWeather(latitude: Double, longitude: Double): WeatherModel {
 
-        var temperature = ""
+        lateinit var temperature : WeatherModel
 
-        val response = weatherAPI.fetchCurrentWeather(location, API_KEY, "metric")
+        val response = weatherAPI.fetchCurrentWeather(latitude, longitude, API_KEY, "metric")
 
         if (response.isSuccessful) {
 
             response.body()?.let {
-                temperature = it.main.temp.toInt().toString()
+                temperature = it
             }
 
         } else
             Log.i("Response erro", "${response.errorBody()}")
 
-        return temperature + "º C"
+        return temperature
+    }
+
+    suspend fun fetchWeatherIcon(iconName: String) {
+
+        Log.i("Response icon", "chamou a funcao")
+
+        val response = weatherAPI.getchWeatherIcon(iconName)
+
+        if (response.isSuccessful) {
+            response.body()?.let {
+                Log.i("Response icon", "${response.body()}")
+            }
+        }
+        else{
+            Log.i("Response icon erro", "${response.errorBody()}")
+        }
     }
 
 }
