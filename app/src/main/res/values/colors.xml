@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="titleColor">#FF000000</color>
+    <color name="gradientStar">#fff1eb</color>
+    <color name="gradientEnd">#ace0f9</color>
+    <color name="menuColor">#6eccfa</color>
 </resources>

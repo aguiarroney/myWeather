@@ -59,12 +59,21 @@ class HomeFragment : Fragment() {
         _viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
             it?.let {
 
-                _binding.tvCurrentTemperature.text = it.main.temp.toInt().toString() + "º C"
+                _binding.tvCurrentTemperature.text = "${it.main.temp.toInt()}º C"
 
                 _binding.tvWeatherDescription.text = it.weather[0].description
 
                 Picasso.with(context).load("${ICON_URL}${it.weather[0].icon}${EXTENSION_ICON_URL}")
                     .into(_binding.ivWeatherIcon)
+
+                _binding.tvFeelsLike.text = " Feels like ${it.main.feels_like.toInt()} ºC"
+                _binding.tvMaxMin.text =
+                    "${it.main.temp_min.toInt()}ºC  /  ${it.main.temp_max.toInt()}ºC"
+
+                _binding.tvSunriseValue.text = "${it.sys.sunrise}"
+                _binding.tvSunsetValue.text = "${it.sys.sunset}"
+                _binding.tvWindValue.text = "${it.wind.speed} m/s"
+                _binding.tvHumidityValue.text = "${it.main.humidity} %"
             }
         })
 

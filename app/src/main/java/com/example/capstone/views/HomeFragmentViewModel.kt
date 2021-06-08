@@ -66,13 +66,13 @@ class HomeFragmentViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun fetchWeatherIcon(){
-
-        viewModelScope.launch{
-
-            val iconName = _currentWeather.value!!.weather[0].icon
-            repository.fetchWeatherIcon(iconName)
-        }
-    }
+//    fun fetchWeatherIcon(){
+//
+//        viewModelScope.launch{
+//
+//            val iconName = _currentWeather.value!!.weather[0].icon
+//            repository.fetchWeatherIcon(iconName)
+//        }
+//    }
 
 }
