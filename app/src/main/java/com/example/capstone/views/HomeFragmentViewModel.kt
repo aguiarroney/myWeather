@@ -66,13 +66,11 @@ class HomeFragmentViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-//    fun fetchWeatherIcon(){
-//
-//        viewModelScope.launch{
-//
-//            val iconName = _currentWeather.value!!.weather[0].icon
-//            repository.fetchWeatherIcon(iconName)
-//        }
-//    }
+    fun formatDateTime(timeSinceEpoch: Long): String {
+
+        val sdf = java.text.SimpleDateFormat("HH:mm:ss")
+        val dateSunrise = java.util.Date(timeSinceEpoch * 1000)
+        return sdf.format(dateSunrise)
+    }
 
 }

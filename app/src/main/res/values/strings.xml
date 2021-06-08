@@ -8,4 +8,9 @@
     <string name="item_current_location">Current</string>
     <string name="item_find_location">Find</string>
     <string name="item_favourites">Favourites</string>
+
+<!--    textViews-->
+    <string name="text_current_temperature">%dº C</string>
+    <string name="text_feels_like_temperature"> Feels like %dºC</string>
+    <string name="text_max_min_temperature">%dºC / %dºC</string>
 </resources>

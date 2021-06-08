@@ -3,11 +3,13 @@ package com.example.capstone.views
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -33,6 +35,7 @@ class HomeFragment : Fragment() {
         const val EXTENSION_ICON_URL = "@2x.png"
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,19 +62,23 @@ class HomeFragment : Fragment() {
         _viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
             it?.let {
 
-                _binding.tvCurrentTemperature.text = "${it.main.temp.toInt()}º C"
+                _binding.tvCurrentTemperature.text =
+                    getString(R.string.text_current_temperature, it.main.temp.toInt())
 
                 _binding.tvWeatherDescription.text = it.weather[0].description
 
                 Picasso.with(context).load("${ICON_URL}${it.weather[0].icon}${EXTENSION_ICON_URL}")
                     .into(_binding.ivWeatherIcon)
 
-                _binding.tvFeelsLike.text = " Feels like ${it.main.feels_like.toInt()} ºC"
-                _binding.tvMaxMin.text =
-                    "${it.main.temp_min.toInt()}ºC  /  ${it.main.temp_max.toInt()}ºC"
+                _binding.tvFeelsLike.text =
+                    getString(R.string.text_feels_like_temperature, it.main.feels_like.toInt())
 
-                _binding.tvSunriseValue.text = "${it.sys.sunrise}"
-                _binding.tvSunsetValue.text = "${it.sys.sunset}"
+                _binding.tvMaxMin.text =
+                    getString(R.string.text_max_min_temperature, it.main.temp_min.toInt(), it.main.temp_max.toInt())
+
+                _binding.tvSunriseValue.text =
+                    "${_viewModel.formatDateTime(it.sys.sunrise.toLong())}"
+                _binding.tvSunsetValue.text = "${_viewModel.formatDateTime(it.sys.sunset.toLong())}"
                 _binding.tvWindValue.text = "${it.wind.speed} m/s"
                 _binding.tvHumidityValue.text = "${it.main.humidity} %"
             }
