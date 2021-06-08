@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/favourites"
+        android:id="@+id/favouritesFragment"
         android:icon="@drawable/ic_favourites"
         android:title="@string/item_favourites" />
 
     <item
-        android:id="@+id/currentLocation"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_current"
         android:title="@string/item_current_location" />
 
     <item
-        android:id="@+id/findLocation"
+        android:id="@+id/findFragment"
         android:icon="@drawable/ic_find"
         android:title="@string/item_find_location" />
 
