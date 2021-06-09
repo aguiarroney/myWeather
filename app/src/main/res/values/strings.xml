@@ -20,4 +20,5 @@
     <string name="btn_find_text">ok</string>
     <string name="country_hint">Country</string>
     <string name="state_hint">State</string>
+    <string name="faveourite_btn_text">Faveourite It</string>
 </resources>

@@ -3,7 +3,6 @@ package com.example.capstone.API
 import com.example.capstone.model.WeatherModel
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface WeatherAPI {
@@ -16,9 +15,9 @@ interface WeatherAPI {
         @Query("units") unit: String
     ): Response<WeatherModel>
 
-    @GET("img/wn/{iconName}@2x.png")
-    suspend fun getchWeatherIcon(
-        @Path("iconName") iconName: String
-    ): Response<String>
-
+    @GET("data/2.5/weather?")
+    suspend fun fetchWeatherByLocationName(
+        @Query("q") location: String,
+        @Query("appid") apiKey: String
+    ): Response<WeatherModel>
 }

@@ -67,7 +67,6 @@ class HomeFragmentViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun formatDateTime(timeSinceEpoch: Long): String {
-
         val sdf = java.text.SimpleDateFormat("HH:mm:ss")
         val dateSunrise = java.util.Date(timeSinceEpoch * 1000)
         return sdf.format(dateSunrise)

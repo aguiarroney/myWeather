@@ -31,7 +31,7 @@ class Repository {
 
     suspend fun fetchCurrentWeather(latitude: Double, longitude: Double): WeatherModel {
 
-        lateinit var temperature : WeatherModel
+        lateinit var temperature: WeatherModel
 
         val response = weatherAPI.fetchCurrentWeather(latitude, longitude, API_KEY, "metric")
 
@@ -47,20 +47,25 @@ class Repository {
         return temperature
     }
 
-    suspend fun fetchWeatherIcon(iconName: String) {
+    suspend fun fetchWeatherByLocationName(
+        city: String,
+        state: String,
+        country: String
+    ): WeatherModel? {
 
-        Log.i("Response icon", "chamou a funcao")
+        lateinit var temperature: WeatherModel
 
-        val response = weatherAPI.getchWeatherIcon(iconName)
+        val response = weatherAPI.fetchWeatherByLocationName("$city,$state,$country", API_KEY)
 
         if (response.isSuccessful) {
             response.body()?.let {
-                Log.i("Response icon", "${response.body()}")
+                temperature = it
             }
+        } else {
+            Log.i("fetchweatherBy", "${response.errorBody()}")
         }
-        else{
-            Log.i("Response icon erro", "${response.errorBody()}")
-        }
+
+        return null
     }
 
 }
