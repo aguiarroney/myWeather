@@ -74,13 +74,19 @@ class HomeFragment : Fragment() {
                     getString(R.string.text_feels_like_temperature, it.main.feels_like.toInt())
 
                 _binding.tvMaxMin.text =
-                    getString(R.string.text_max_min_temperature, it.main.temp_min.toInt(), it.main.temp_max.toInt())
+                    getString(
+                        R.string.text_max_min_temperature,
+                        it.main.temp_min.toInt(),
+                        it.main.temp_max.toInt()
+                    )
 
                 _binding.tvSunriseValue.text =
-                    "${_viewModel.formatDateTime(it.sys.sunrise.toLong())}"
-                _binding.tvSunsetValue.text = "${_viewModel.formatDateTime(it.sys.sunset.toLong())}"
-                _binding.tvWindValue.text = "${it.wind.speed} m/s"
-                _binding.tvHumidityValue.text = "${it.main.humidity} %"
+                    _viewModel.formatDateTime(it.sys.sunrise.toLong())
+
+                _binding.tvSunsetValue.text = _viewModel.formatDateTime(it.sys.sunset.toLong())
+
+                _binding.tvWindValue.text = getString(R.string.text_wind_speed, it.wind.speed.toString().format(2))
+                _binding.tvHumidityValue.text = getString(R.string.text_humidity, it.main.humidity)
             }
         })
 

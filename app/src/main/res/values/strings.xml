@@ -13,4 +13,11 @@
     <string name="text_current_temperature">%dº C</string>
     <string name="text_feels_like_temperature"> Feels like %dºC</string>
     <string name="text_max_min_temperature">%dºC / %dºC</string>
+    <string name="text_wind_speed">%s m/s</string>
+    <string name="text_humidity">%d %%</string>
+    <string name="fragment_find_label">Find a place</string>
+    <string name="edittext_hint">City</string>
+    <string name="btn_find_text">ok</string>
+    <string name="country_hint">Country</string>
+    <string name="state_hint">State</string>
 </resources>
