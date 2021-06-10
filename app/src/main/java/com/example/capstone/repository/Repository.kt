@@ -8,7 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class Repository {
+open class Repository {
 
     companion object {
 
@@ -53,7 +53,8 @@ class Repository {
         country: String
     ): WeatherModel? {
 
-        val response = weatherAPI.fetchWeatherByLocationName("$city,$state,$country", API_KEY, "metric")
+        val response =
+            weatherAPI.fetchWeatherByLocationName("$city,$state,$country", API_KEY, "metric")
 
         if (response.isSuccessful) {
             response.body()?.let {

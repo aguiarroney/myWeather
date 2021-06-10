@@ -13,7 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.capstone.R
 import com.example.capstone.databinding.FragmentFindBinding
+import com.example.capstone.local.getDatabase
 import com.example.capstone.repository.Repository
+import com.example.capstone.repository.RoomRepository
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
@@ -31,7 +33,8 @@ class FindFragment : Fragment() {
 
         _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_find, container, false)
 
-        val repository = Repository()
+        val database = getDatabase(requireContext())
+        val repository = RoomRepository(database)
         val factory = FindFragmentViewModelFactory(repository)
 
         _viewModel = ViewModelProvider(this, factory).get(FindFragmentViewModel::class.java)
@@ -60,6 +63,7 @@ class FindFragment : Fragment() {
             clearTextFields()
 
             _binding.cvMainCard.isVisible = true
+            _binding.btnSave.isVisible = true
             _binding.tvCurrentLocationFind.text = it.name
             _binding.ivLocationIconFind.setBackgroundResource(R.drawable.ic_location_icon)
 
@@ -89,8 +93,11 @@ class FindFragment : Fragment() {
                     "City Not Found",
                     Snackbar.LENGTH_INDEFINITE
                 ).setAction("Ok") {
+
                     _viewModel.cityNotFound()
                     clearTextFields()
+                    _binding.btnSave.isVisible = false
+                    _binding.cvMainCard.isVisible = false
 
                 }
                 _snackbar.show()

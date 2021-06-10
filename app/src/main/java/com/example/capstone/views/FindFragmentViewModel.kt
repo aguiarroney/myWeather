@@ -1,20 +1,16 @@
 package com.example.capstone.views
 
-import android.app.Activity
-import android.content.Context
 import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.capstone.model.WeatherModel
-import com.example.capstone.repository.Repository
+import com.example.capstone.repository.RoomRepository
+import com.example.capstone.util.asDataBaseModel
 import kotlinx.coroutines.launch
 
-class FindFragmentViewModel(private val repository: Repository) : ViewModel() {
+class FindFragmentViewModel(private val repository: RoomRepository) : ViewModel() {
 
     var myCity: String? = null
     var myState: String? = null
@@ -55,5 +51,21 @@ class FindFragmentViewModel(private val repository: Repository) : ViewModel() {
 
     fun cityNotFound() {
         _nullResponseFromNetwork.value = false
+    }
+
+    fun saveFavourite() {
+        _myWeather.value?.let {
+            viewModelScope.launch {
+                repository.insertLocationWeather(it.asDataBaseModel())
+                Log.i("Vai salvar", "sera")
+            }
+        }
+    }
+
+    fun getFavouritesFromDb() {
+        viewModelScope.launch {
+            val response = repository.getAllWeather()
+            Log.i("pegou do db", "$response")
+        }
     }
 }
