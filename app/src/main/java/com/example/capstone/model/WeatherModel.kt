@@ -1,17 +1,17 @@
 package com.example.capstone.model
 
 data class WeatherModel(
-    val base: String,
-    val clouds: Clouds,
-    val cod: Int,
-    val coord: Coord,
-    val dt: Int,
-    val id: Int,
-    val main: Main,
-    val name: String,
-    val sys: Sys,
-    val timezone: Int,
-    val visibility: Int,
-    val weather: List<Weather>,
-    val wind: Wind
+    var base: String,
+    var clouds: Clouds,
+    var cod: Int,
+    var coord: Coord,
+    var dt: Int,
+    var id: Int,
+    var main: Main,
+    var name: String,
+    var sys: Sys,
+    var timezone: Int,
+    var visibility: Int,
+    var weather: List<Weather>,
+    var wind: Wind
 )

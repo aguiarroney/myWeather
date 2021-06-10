@@ -18,6 +18,7 @@ interface WeatherAPI {
     @GET("data/2.5/weather?")
     suspend fun fetchWeatherByLocationName(
         @Query("q") location: String,
-        @Query("appid") apiKey: String
+        @Query("appid") apiKey: String,
+        @Query("units") unit: String
     ): Response<WeatherModel>
 }

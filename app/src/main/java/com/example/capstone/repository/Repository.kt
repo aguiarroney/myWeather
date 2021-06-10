@@ -53,13 +53,11 @@ class Repository {
         country: String
     ): WeatherModel? {
 
-        lateinit var temperature: WeatherModel
-
-        val response = weatherAPI.fetchWeatherByLocationName("$city,$state,$country", API_KEY)
+        val response = weatherAPI.fetchWeatherByLocationName("$city,$state,$country", API_KEY, "metric")
 
         if (response.isSuccessful) {
             response.body()?.let {
-                temperature = it
+                return it
             }
         } else {
             Log.i("fetchweatherBy", "${response.errorBody()}")

@@ -8,10 +8,6 @@
         <variable
             name="findViewModel"
             type="com.example.capstone.views.FindFragmentViewModel" />
-
-        <variable
-            name="myWeather"
-            type="com.example.capstone.model.WeatherModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -159,6 +155,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+
                     app:layout_constraintBottom_toBottomOf="@+id/iv_location_icon_find"
                     app:layout_constraintStart_toEndOf="@id/iv_location_icon_find"
                     app:layout_constraintTop_toTopOf="@id/iv_location_icon_find"
