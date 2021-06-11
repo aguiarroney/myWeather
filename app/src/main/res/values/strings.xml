@@ -17,7 +17,7 @@
     <string name="text_humidity">%d %%</string>
     <string name="fragment_find_label">Find a place</string>
     <string name="edittext_hint">City</string>
-    <string name="btn_find_text">ok</string>
+    <string name="btn_find_text">OK</string>
     <string name="country_hint">Country</string>
     <string name="state_hint">State</string>
     <string name="faveourite_btn_text">Faveourite It</string>
