@@ -20,6 +20,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/tbn_delete_favourites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:contentDescription="@string/delete_all_favourites_btn"
+            android:src="@drawable/ic_delete"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_fragment_title_favourites_2"
+            app:layout_constraintStart_toStartOf="parent"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="@+id/tv_fragment_title_favourites_2"
+            android:focusable="true" />
+
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

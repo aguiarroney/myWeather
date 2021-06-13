@@ -19,4 +19,9 @@ class RoomRepository(private val database: LocationRoomDatabase) : Repository() 
         }
     }
 
+    suspend fun deleteAllFromDatabase(){
+        withContext(Dispatchers.IO){
+            database.locationDAO.deleteAll()
+        }
+    }
 }

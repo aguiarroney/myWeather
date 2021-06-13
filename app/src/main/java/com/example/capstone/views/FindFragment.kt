@@ -41,13 +41,15 @@ class FindFragment : Fragment() {
 
         _binding.findViewModel = _viewModel
 
+        _snackbar = Snackbar.make(
+            requireActivity().findViewById(android.R.id.content),
+            "Missing Fields",
+            Snackbar.LENGTH_INDEFINITE
+        )
+
         _viewModel.fields.observe(viewLifecycleOwner, Observer {
             if (it) {
-                _snackbar = Snackbar.make(
-                    requireActivity().findViewById(android.R.id.content),
-                    "Missing Fields",
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction("Ok") {
+                _snackbar.setAction("Ok") {
                     _viewModel.missingFields()
                 }
                 _snackbar.show()
@@ -104,6 +106,20 @@ class FindFragment : Fragment() {
             }
         })
 
+        _binding.btnSave.setOnClickListener {
+            _viewModel.saveFavourite()
+            _snackbar = Snackbar.make(
+                requireActivity().findViewById(android.R.id.content),
+                "The location and it's current temperature were saved",
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction("Ok") {
+                clearTextFields()
+                _binding.btnSave.isVisible = false
+                _binding.cvMainCard.isVisible = false
+            }
+            _snackbar.show()
+        }
+
         return _binding.root
     }
 
@@ -116,5 +132,10 @@ class FindFragment : Fragment() {
     private fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _snackbar.dismiss()
     }
 }

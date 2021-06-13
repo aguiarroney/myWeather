@@ -11,6 +11,9 @@ interface LocationDAO {
 
     @Query("SELECT * FROM favourite_weathers")
     fun getAll(): List<LocationDatabaseEntities>
+
+    @Query("DELETE FROM favourite_weathers ")
+    fun deleteAll()
 }
 
 @Database(entities = [LocationDatabaseEntities::class], version = 3, exportSchema = false)

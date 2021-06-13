@@ -21,4 +21,5 @@
     <string name="country_hint">Country</string>
     <string name="state_hint">State</string>
     <string name="faveourite_btn_text">Faveourite It</string>
+    <string name="delete_all_favourites_btn">delete all favourites btn</string>
 </resources>

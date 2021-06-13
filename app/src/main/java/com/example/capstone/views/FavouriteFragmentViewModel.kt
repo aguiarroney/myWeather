@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.capstone.local.LocationDatabaseEntities
 import com.example.capstone.repository.RoomRepository
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FavouriteFragmentViewModel(private val repository: RoomRepository) : ViewModel() {
 
@@ -18,4 +19,9 @@ class FavouriteFragmentViewModel(private val repository: RoomRepository) : ViewM
         }
     }
 
+    fun deleteAllFromDatabase(){
+        viewModelScope.launch {
+            repository.deleteAllFromDatabase()
+        }
+    }
 }

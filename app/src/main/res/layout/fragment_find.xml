@@ -91,7 +91,6 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-
             android:padding="4dp"
             android:text="@string/btn_find_text"
             android:textAllCaps="false"
@@ -191,15 +190,18 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Button
+        <TextView
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{()-> findViewModel.saveFavourite()}"
+            android:layout_height="30dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/btn_bg"
             android:text="@string/faveourite_btn_text"
             android:textAllCaps="false"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textColor="@color/purple_500"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_main_card" />

@@ -106,10 +106,10 @@ class HomeFragment : Fragment() {
         return _binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        snackbar.dismiss()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        snackbar.dismiss()
+//    }
 
     private fun checkAndRequestLocationPermissions() {
         if (ContextCompat.checkSelfPermission(

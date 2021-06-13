@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.forEach
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -48,8 +50,17 @@ class FavouritesFragment : Fragment() {
                     listItem.localWeather = it
                     _binding.localWeatherList.addView(listItem.root)
                 }
+
+                if(it.isNotEmpty())
+                    _binding.tbnDeleteFavourites.isVisible = true
             }
         })
+
+        _binding.tbnDeleteFavourites.setOnClickListener {
+            _viewModel.deleteAllFromDatabase()
+            _binding.localWeatherList.removeAllViews()
+            _binding.tbnDeleteFavourites.isVisible = false
+        }
 
         return _binding.root
     }
