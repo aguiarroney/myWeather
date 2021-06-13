@@ -13,7 +13,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.capstone.R
 import com.example.capstone.databinding.FragmentHomeBinding
@@ -59,8 +58,10 @@ class HomeFragment : Fragment() {
 
         _viewModel.getCurrentLocation(requireActivity())
 
-        _viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
+        _viewModel.currentWeather.observe(viewLifecycleOwner, {
             it?.let {
+
+                Log.i("clima", "$it")
 
                 _binding.tvCurrentTemperature.text =
                     getString(R.string.text_current_temperature, it.main.temp.toInt())
@@ -85,19 +86,20 @@ class HomeFragment : Fragment() {
 
                 _binding.tvSunsetValue.text = _viewModel.formatDateTime(it.sys.sunset.toLong())
 
-                _binding.tvWindValue.text = getString(R.string.text_wind_speed, it.wind.speed.toString().format(2))
+                _binding.tvWindValue.text =
+                    getString(R.string.text_wind_speed, it.wind.speed.toString().format(2))
                 _binding.tvHumidityValue.text = getString(R.string.text_humidity, it.main.humidity)
             }
         })
 
-        _viewModel.currentCityName.observe(viewLifecycleOwner, Observer {
+        _viewModel.currentCityName.observe(viewLifecycleOwner, {
             it?.let {
                 _binding.tvCurrentLocation.text = it
                 _binding.ivLocationIcon.setBackgroundResource(R.drawable.ic_location_icon)
             }
         })
 
-        _viewModel.currentLocation.observe(viewLifecycleOwner, Observer {
+        _viewModel.currentLocation.observe(viewLifecycleOwner, {
             it?.let {
                 _viewModel.fetchCurrentWeather()
             }
@@ -118,7 +120,7 @@ class HomeFragment : Fragment() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             requestPermissions(
-                arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 RESQUEST_CODE
             )
         }
@@ -132,7 +134,7 @@ class HomeFragment : Fragment() {
         Log.i("Permissao", "chamou callback")
         when (requestCode) {
             RESQUEST_CODE -> {
-                if (grantResults.size > 0 && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     Log.i("Permissao", "garantida")
                     _viewModel.getCurrentLocation(requireActivity())
                 } else {

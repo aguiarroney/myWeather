@@ -9,7 +9,7 @@
     <string name="item_find_location">Find</string>
     <string name="item_favourites">Favourites</string>
 
-<!--    textViews-->
+    <!--    textViews-->
     <string name="text_current_temperature">%dº C</string>
     <string name="text_feels_like_temperature"> Feels like %dºC</string>
     <string name="text_max_min_temperature">%dºC / %dºC</string>
@@ -20,6 +20,7 @@
     <string name="btn_find_text">OK</string>
     <string name="country_hint">Country</string>
     <string name="state_hint">State</string>
-    <string name="faveourite_btn_text">Faveourite It</string>
+    <string name="favourite_btn_text">Faveourite It</string>
     <string name="delete_all_favourites_btn">delete all favourites btn</string>
+    <string name="favourites_text_value">Favourites</string>
 </resources>

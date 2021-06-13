@@ -9,17 +9,26 @@
         android:background="@drawable/gradient_bg"
         tools:context=".views.HomeFragment">
 
-        <TextView
-            android:id="@+id/tv_app_title"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/ml_home_header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="16dp"
-            android:text="@string/app_label"
-            android:textColor="@color/black"
-            android:textSize="24sp"
+            app:layoutDescription="@xml/fragment_main_scene"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_app_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:text="@string/app_label"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_main_card"
@@ -28,7 +37,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_app_title">
+            app:layout_constraintTop_toBottomOf="@id/ml_home_header">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

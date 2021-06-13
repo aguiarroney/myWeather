@@ -8,39 +8,49 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_bg">
 
-        <TextView
-            android:id="@+id/tv_fragment_title_favourites_2"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/ml_favourites_header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="16dp"
-            android:text="Favourites"
-            android:textColor="@color/black"
-            android:textSize="24sp"
+            app:layoutDescription="@xml/fragment_favourites_scene"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_fragment_title_favourites_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:text="@string/favourites_text_value"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <ImageView
             android:id="@+id/tbn_delete_favourites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="18dp"
+            android:clickable="true"
             android:contentDescription="@string/delete_all_favourites_btn"
+            android:focusable="true"
             android:src="@drawable/ic_delete"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_fragment_title_favourites_2"
+            app:layout_constraintBottom_toBottomOf="@id/ml_favourites_header"
             app:layout_constraintStart_toStartOf="parent"
-            android:clickable="true"
-            app:layout_constraintTop_toTopOf="@+id/tv_fragment_title_favourites_2"
-            android:focusable="true" />
+            app:layout_constraintTop_toTopOf="@id/ml_favourites_header" />
 
 
         <ScrollView
+            android:id="@+id/sv_scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_fragment_title_favourites_2">
+            app:layout_constraintTop_toBottomOf="@id/ml_favourites_header">
 
             <LinearLayout
                 android:id="@+id/localWeatherList"

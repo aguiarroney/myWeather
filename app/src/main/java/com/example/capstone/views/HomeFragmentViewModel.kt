@@ -48,21 +48,25 @@ class HomeFragmentViewModel(private val repository: Repository) : ViewModel() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
         fusedLocationProviderClient.lastLocation.addOnSuccessListener {
 
-            val geocoder = Geocoder(activity.applicationContext, Locale.getDefault())
-            val addres = geocoder.getFromLocation(it.latitude, it.longitude, 1)
+            Log.i("geocoder", "$it")
 
-            Log.i(
-                "Address",
-                "${addres[0].subAdminArea} : ${addres[0].adminArea} : ${addres[0].locality}"
-            )
+            it?.let {
+                val geocoder = Geocoder(activity.applicationContext, Locale.getDefault())
+                val addres = geocoder.getFromLocation(it.latitude, it.longitude, 1)
 
-            if (addres[0].locality.isNullOrEmpty()) {
-                _currentCityName.value = addres[0].subAdminArea + ", " + addres[0].adminArea
-            } else {
-                _currentCityName.value = addres[0].locality + ", " + addres[0].adminArea
+                Log.i(
+                    "Address",
+                    "${addres[0].subAdminArea} : ${addres[0].adminArea} : ${addres[0].locality}"
+                )
+
+                if (addres[0].locality.isNullOrEmpty()) {
+                    _currentCityName.value = addres[0].subAdminArea + ", " + addres[0].adminArea
+                } else {
+                    _currentCityName.value = addres[0].locality + ", " + addres[0].adminArea
+                }
+
+                _currentLocation.value = LatLng(it.latitude, it.longitude)
             }
-
-            _currentLocation.value = LatLng(it.latitude, it.longitude)
         }
     }
 
