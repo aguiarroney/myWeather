@@ -36,8 +36,10 @@ class FindFragmentViewModel(private val repository: RoomRepository) : ViewModel(
                     repository.fetchWeatherByLocationName(myCity!!, myState!!, myCountry!!)
 
                 if (response != null) {
-                    _myWeather.value = response
-                    myWeather = _myWeather
+                    if(response.isSuccessful){
+                        _myWeather.value = response.body()
+                        myWeather = _myWeather
+                    }
                 } else {
                     _nullResponseFromNetwork.value = true
                 }

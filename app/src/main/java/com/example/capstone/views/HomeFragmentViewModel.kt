@@ -35,10 +35,16 @@ class HomeFragmentViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             Log.i("ViewModel", "Vai chamar a api")
 
-            _currentWeather.value = repository.fetchCurrentWeather(
+            val response = repository.fetchCurrentWeather(
                 _currentLocation.value!!.latitude,
                 _currentLocation.value!!.longitude
             )
+
+            if (response != null) {
+                if (response.isSuccessful) {
+                    _currentWeather.value = response.body()
+                }
+            }
         }
     }
 

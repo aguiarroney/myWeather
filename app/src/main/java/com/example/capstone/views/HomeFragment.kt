@@ -2,6 +2,7 @@ package com.example.capstone.views
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +18,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.capstone.R
 import com.example.capstone.databinding.FragmentHomeBinding
 import com.example.capstone.repository.Repository
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
@@ -27,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var _viewModel: HomeFragmentViewModel
     private lateinit var _binding: FragmentHomeBinding
     private lateinit var snackbar: Snackbar
+    private var _permissionsGranted: Boolean = false
 
     companion object {
         const val RESQUEST_CODE = 1
@@ -53,6 +59,8 @@ class HomeFragment : Fragment() {
         )
 
         checkAndRequestLocationPermissions()
+        if (_permissionsGranted)
+            checkDeviceLocationSettings()
 
         _viewModel = ViewModelProvider(this, factory).get(HomeFragmentViewModel::class.java)
 
@@ -108,10 +116,6 @@ class HomeFragment : Fragment() {
         return _binding.root
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        snackbar.dismiss()
-//    }
 
     private fun checkAndRequestLocationPermissions() {
         if (ContextCompat.checkSelfPermission(
@@ -136,6 +140,8 @@ class HomeFragment : Fragment() {
             RESQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     Log.i("Permissao", "garantida")
+                    _permissionsGranted = true
+                    checkDeviceLocationSettings()
                     _viewModel.getCurrentLocation(requireActivity())
                 } else {
                     snackbar.setAction("Allow") {
@@ -146,5 +152,49 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun checkDeviceLocationSettings(
+        resolve: Boolean = true,
+    ) {
 
+        Log.i("checagem", "entrou")
+
+        val locationRequest = LocationRequest.create().apply {
+            priority = LocationRequest.PRIORITY_LOW_POWER
+        }
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+
+        val settingsClient = LocationServices.getSettingsClient(requireActivity())
+        val locationSettingsResponseTask =
+            settingsClient.checkLocationSettings(builder.build())
+
+        locationSettingsResponseTask.addOnFailureListener { exception ->
+            Log.i("checagem", "falha")
+            if (exception is ResolvableApiException && resolve) {
+                try {
+                    startIntentSenderForResult(
+                        exception.resolution.intentSender,
+                        29,
+                        null,
+                        0,
+                        0,
+                        0,
+                        null
+                    )
+
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    Log.d(
+                        "HomeFragment",
+                        "Error geting location settings resolution: " + sendEx.message
+                    )
+                }
+            } else {
+                checkDeviceLocationSettings()
+            }
+
+            locationSettingsResponseTask.addOnCompleteListener {
+                Log.i("checagem", "ligou o gps")
+                _viewModel.getCurrentLocation(requireActivity())
+            }
+        }
+    }
 }
