@@ -211,6 +211,120 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_info_card">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_forecast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Forecast"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_day1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/tv_day2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_forecast"
+                    tools:text="Seg" />
+
+                <TextView
+                    android:id="@+id/tv_day2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/tv_day3"
+                    app:layout_constraintStart_toEndOf="@id/tv_day1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_forecast"
+                    tools:text="Ter" />
+
+                <TextView
+                    android:id="@+id/tv_day3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/tv_day4"
+                    app:layout_constraintStart_toEndOf="@id/tv_day2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_forecast"
+                    tools:text="Qua" />
+
+                <TextView
+                    android:id="@+id/tv_day4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/tv_day5"
+                    app:layout_constraintStart_toEndOf="@id/tv_day3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_forecast"
+                    tools:text="Qui" />
+
+                <TextView
+                    android:id="@+id/tv_day5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_day4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_forecast"
+                    tools:text="Sex" />
+
+                <ImageView
+                    android:id="@+id/iv_day1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toStartOf="@id/iv_day2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_day1" />
+
+                <ImageView
+                    android:id="@+id/iv_day2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toStartOf="@id/iv_day3"
+                    app:layout_constraintStart_toEndOf="@id/iv_day1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_day2" />
+
+                <ImageView
+                    android:id="@+id/iv_day3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toStartOf="@id/iv_day4"
+                    app:layout_constraintStart_toEndOf="@id/iv_day2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_day3" />
+
+                <ImageView
+                    android:id="@+id/iv_day4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toStartOf="@id/iv_day5"
+                    app:layout_constraintStart_toEndOf="@id/iv_day3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_day4" />
+
+                <ImageView
+                    android:id="@+id/iv_day5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_day4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_day5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
